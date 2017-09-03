@@ -1,6 +1,7 @@
 #-*- coding:utf-8 -*-
 # Requires Office Word
 # Requires python for win32 extension
+# Author:Phoenix
 
 import os
 from win32com import client as wc 

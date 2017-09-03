@@ -16,12 +16,14 @@ def word2pdf(word, pwd, in_file):
         return False
     else:
         try:
-            doc.SaveAs(pwd+"/pdfs/"+in_file.split(".")[0]+".pdf", 17)
+            file_name_list = in_file.split(".")
+            file_name_list.pop()
+            doc.SaveAs(pwd+"/pdfs/"+''.join(file_name_list)+".pdf", 17)
         except:
             print("%s convert Error!" % (in_file))
             return False
+        doc.Close()
         return True
-        doc.Close() 
 
 def checkExtensiton(pwd, in_file):
     name = in_file.split(".")[-1]
@@ -46,14 +48,13 @@ if __name__ == '__main__':
         pwd = os.getcwd()
         if os.path.exists(pwd+"/pdfs") is not True:
             os.mkdir(pwd+"/pdfs")
-        else:
-            file_list = os.listdir(pwd)
-            for item_name in file_list:
-                flag = checkExtensiton(pwd, item_name)
-                if flag:
-                    print("Converting %s now, please wait." % (item_name))
-                    res = word2pdf(word, pwd, item_name)
-                    if res:
-                        print("Convert Success!")
-                    else:
-                        print("Convert Failed! An Error occurred!")
+        file_list = os.listdir(pwd)
+        for item_name in file_list:
+            flag = checkExtensiton(pwd, item_name)
+            if flag:
+                print("Converting %s now, please wait." % (item_name))
+                res = word2pdf(word, pwd, item_name)
+                if res:
+                    print("Convert Success!")
+                else:
+                    print("Convert Failed! An Error occurred!")
